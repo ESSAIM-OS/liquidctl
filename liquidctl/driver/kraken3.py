@@ -20,8 +20,6 @@ import logging
 import sys
 import time
 
-from PIL import Image, ImageSequence
-
 if sys.platform == "win32":
     from winusbcdc import WinUsbPy
 
@@ -871,6 +869,10 @@ class KrakenZ3(KrakenX3):
         path is the path to any image file
         Rotation is expected as 0 = no rotation, 1 = 90 degrees, 2 = 180 degrees, 3 = 270 degrees
         """
+        try:
+            from PIL import Image
+        except ImportError as exc:
+            raise NotSupportedByDriver("Pillow (python3-pil) is required for LCD image uploads") from exc
         data = (
             Image.open(path)
             .resize(self.lcd_resolution)
@@ -892,6 +894,10 @@ class KrakenZ3(KrakenX3):
         path is the path to any image file
         Rotation is expected as 0 = no rotation, 1 = 90 degrees, 2 = 180 degrees, 3 = 270 degrees
         """
+        try:
+            from PIL import Image
+        except ImportError as exc:
+            raise NotSupportedByDriver("Pillow (python3-pil) is required for LCD image uploads") from exc
         data = (
             Image.open(path)
             .resize(self.lcd_resolution)
@@ -916,6 +922,10 @@ class KrakenZ3(KrakenX3):
         Gifs are resized to LCD resolution and rotated to match the desired orientation
         result is a bytesIo stream
         """
+        try:
+            from PIL import Image, ImageSequence
+        except ImportError as exc:
+            raise NotSupportedByDriver("Pillow (python3-pil) is required for LCD GIF uploads") from exc
         img = Image.open(path)
 
         frames = ImageSequence.Iterator(img)

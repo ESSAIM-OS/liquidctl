@@ -17,9 +17,9 @@ from enum import Enum, unique
 from time import sleep
 import logging
 import io
-from PIL import Image
 
 from liquidctl.driver.usb import UsbHidDriver
+from liquidctl.error import NotSupportedByDriver
 from liquidctl.keyval import RuntimeStorage
 from liquidctl.util import RelaxedNamesEnum, check_unsafe, clamp, u16le_from
 
@@ -710,6 +710,10 @@ class MpgCooler(UsbHidDriver):
             self.set_oled_show_disable()
 
     def _prepare_bmp(self, path):
+        try:
+            from PIL import Image
+        except ImportError as exc:
+            raise NotSupportedByDriver("Pillow (python3-pil) is required for LCD BMP uploads") from exc
         end_w, end_h = 240, 320
         img = Image.open(path)
         w, h = img.size
