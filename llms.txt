@@ -1,0 +1,11 @@
+# ESSAIM-OS/liquidctl (Linux Headless-Optimized Fork)
+
+> Linux-optimized fork of liquidctl designed for headless Debian servers, homelabs, and Essaim OS: lazy Pillow import (optional [lcd] extra, saves ~30 MB), sub-millisecond `/sys/bus/usb/devices` VID:PID pre-scan (`linux_fast.py`), lazy per-device driver loading, automatic exclusion of native Essaim OS RGB controllers (Gigabyte ITE `048d:*`, AMD Wraith Prism `2516:0051`, ASUS Aura motherboard HIDs while keeping ASUS ROG Ryujin/Ryuo AIOs enabled), and single-shot `liquidctl-essaim` JSON bridge with per-boot init caching and enforced pump safety floor (`>=40%`).
+
+## Links
+
+- [Essaim OS Documentation](https://github.com/ESSAIM-OS/essaim-docs)
+- [Essaim OS Website](https://essaimos.com/en)
+- [Linux Fast Scanner](liquidctl/linux_fast.py)
+- [Essaim JSON Bridge](liquidctl/essaim_bridge.py)
+- [Chroot Rootfs Installer](essaimos/integrate-rootfs.sh)
